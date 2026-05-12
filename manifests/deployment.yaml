@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: env-sba
+  namespace: env-sba
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: env-sba
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: env-sba
+    spec:
+      serviceAccountName: env-sba-sa
+      containers:
+        - name: env-sba
+          image: iamthebonbon/env-sba:c8f2a55
+          ports:
+            - name: http
+              containerPort: 8081
+            - name: management
+              containerPort: 7081
+          env:
+            - name: spring.profiles.active
+              value: kubernetes,jwt
+            - name: spring.cloud.kubernetes.enabled
+              value: "true"
+            - name: spring.cloud.kubernetes.discovery.enabled
+              value: "true"
+            - name: spring.cloud.kubernetes.config.enabled
+              value: "true"
+            - name: spring.cloud.kubernetes.secrets.enabled
+              value: "true"
