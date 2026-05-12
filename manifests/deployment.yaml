@@ -16,7 +16,7 @@ spec:
       serviceAccountName: env-sba-sa
       containers:
         - name: env-sba
-          image: iamthebonbon/env-sba:c8f2a55
+          image: iamthebonbon/env-sba:1fb1e6a
           ports:
             - name: http
               containerPort: 8081
